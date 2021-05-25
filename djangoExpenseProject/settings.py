@@ -1,4 +1,5 @@
 import os
+import django_heroku
 """
 Django settings for djangoExpenseProject project.
 
@@ -132,4 +133,5 @@ STATIC_ROOT=os.path.join(BASE_DIR,'static')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+django_heroku.settings(locals())
 
