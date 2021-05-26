@@ -14,11 +14,12 @@
   }
 }
 
-.showPasswordToggle {
+.show_password_toggle {
   cursor: pointer;
   transition: all;
 }
 
-.showPasswordToggle:hover {
+.show_password_toggle:hover {
   transform: scale(1.2);
 }
+

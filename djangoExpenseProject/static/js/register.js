@@ -1,9 +1,16 @@
 const usernameField = document.querySelector("#usernameField");
 const emailField = document.querySelector("#emailField");
+const passwordField = document.querySelector("#passwordField");
+
 const usernameFeedbackArea = document.querySelector(".username_feedback");
 const emailFeedbackArea = document.querySelector(".email_feedback");
+const passwordFeedbackArea = document.querySelector(".password_feedback");
+
 const usernameSuccessOutput = document.querySelector(".username_success_output");
 const emailSuccessOutput = document.querySelector(".email_success_output");
+const passwordSuccessOutput = document.querySelector(".password_success_output");
+
+const showPasswordToggle = document.querySelector(".show_password_toggle");
 
 //username validation
 usernameField.addEventListener("keyup",(e)=>{
@@ -61,3 +68,17 @@ emailField.addEventListener("keyup",(e)=>{
             )
     }
 })
+
+// password
+
+const handleToggleInput = (e) => {
+    if(showPasswordToggle.textContent === "SHOW"){
+        showPasswordToggle.textContent = "HIDE";
+        passwordField.setAttribute("type", "text");
+    }else{
+        showPasswordToggle.textContent = "SHOW";
+        passwordField.setAttribute("type", "password");
+    }
+}
+
+showPasswordToggle.addEventListener("click",handleToggleInput)
