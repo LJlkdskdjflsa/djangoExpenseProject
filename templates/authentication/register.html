@@ -1,0 +1,63 @@
+{%  extends 'base_auth.html' %}
+
+{% load static %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div class="card mt-5">
+                <div class="card-body">
+                    <div class="card-title py-3">
+                        <h4>Register a free acount</h4>
+                    </div>
+                    <form action="" method="post">
+                        <div class="form-group">
+                            <input
+                                    type="text"
+                                    name="username"
+                                    placeholder="Username"
+                                    id="usernameField"
+                                    class="form-control form-control-sm"
+                            />
+                        </div>
+                        <div class="username_feedback invalid-feedback" style="display:none">
+                        </div>
+                        <p class="username_success_output text-sm text-success"></p>
+                        <div class="form-group">
+                            <input
+                                    type="email"
+                                    name="email"
+                                    placeholder="Email"
+                                    id="emailField"
+                                    class="form-control form-control"
+                            />
+                        </div>
+                        <div class="email_feedback invalid-feedback" style="display:none">
+                        </div>
+                        <p class="email_success_output text-sm text-success"></p>
+
+                        <div class="form-group">
+                            <input
+                                    type="password"
+                                    name="password"
+                                    placeholder="Password"
+                                    id="passwordField"
+                                    class="form-control form-control"
+                            />
+                            <small class="float-right py-2">SHOW</small>
+                        </div>
+                        <div class="password_feedback invalid-feedback" style="display:none">
+                        </div>
+                        <p class="password_success_output text-sm text-success"></p>
+
+                        <input type="submit" value="Register" class="btn btn-block btn-primary"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+
+    <script src="{% static 'js/register.js' %}"></script>
+{% endblock content %}
