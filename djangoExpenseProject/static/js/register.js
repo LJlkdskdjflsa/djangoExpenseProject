@@ -11,11 +11,14 @@ const emailSuccessOutput = document.querySelector(".email_success_output");
 const passwordSuccessOutput = document.querySelector(".password_success_output");
 
 const showPasswordToggle = document.querySelector(".show_password_toggle");
+const submitButton = document.querySelector(".submit-btn");
 
 //username validation
 usernameField.addEventListener("keyup",(e)=>{
     const usernameValue = e.target.value;
-    usernameSuccessOutput.style.display = "block";
+    usernameField.classList.remove("is-invalid");
+    usernameFeedbackArea.style.display="none";
+
     usernameSuccessOutput.textContent = `Checking ${usernameValue}`
     if(usernameValue.length > 0){
         fetch("/authentication/validate-username", {
@@ -30,10 +33,12 @@ usernameField.addEventListener("keyup",(e)=>{
                     usernameField.classList.add("is-invalid");
                     usernameFeedbackArea.style.display="block";
                     usernameFeedbackArea.innerHTML = `<p>${data.username_error} </p>`;
+                    submitButton.disabled = true;
+
                 }else{
-                    usernameField.classList.remove("is-invalid");
-                    usernameFeedbackArea.style.display="none";
-                    usernameFeedbackArea.innerHTML = `<p>${data.username_error} </p>`;
+
+                    submitButton.disabled = false;
+
                 }
             }
             )
@@ -43,7 +48,10 @@ usernameField.addEventListener("keyup",(e)=>{
 //email validation
 emailField.addEventListener("keyup",(e)=>{
     const emailValue = e.target.value;
-    emailSuccessOutput.style.display = "block";
+
+    emailField.classList.remove("is-invalid");
+    emailFeedbackArea.style.display="none";
+
     emailSuccessOutput.textContent = `Checking ${emailValue}`
     if(emailValue.length > 0){
         fetch("/authentication/validate-email", {
@@ -59,10 +67,10 @@ emailField.addEventListener("keyup",(e)=>{
                     emailField.classList.add("is-invalid");
                     emailFeedbackArea.style.display="block";
                     emailFeedbackArea.innerHTML = `<p>${data.email_error} </p>`;
+                    submitButton.disabled = true;
                 }else{
-                    usernameField.classList.remove("is-invalid");
-                    emailFeedbackArea.style.display="none";
-                    emailFeedbackArea.innerHTML = `<p>${data.email_error} </p>`;
+                    submitButton.disabled = false;
+
                 }
             }
             )
@@ -70,6 +78,8 @@ emailField.addEventListener("keyup",(e)=>{
 })
 
 // password
+
+
 
 const handleToggleInput = (e) => {
     if(showPasswordToggle.textContent === "SHOW"){
