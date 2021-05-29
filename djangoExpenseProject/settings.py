@@ -200,3 +200,5 @@ CACHES = {
     'redis': env.cache('REDIS_URL')
 }'''
 
+DATE_INPUT_FORMATS = ['%Y-%m-%d %H:%M:%S']
+DATE_FORMAT = ['%Y-%m-%d %H:%M:%S']
