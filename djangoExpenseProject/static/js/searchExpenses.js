@@ -16,6 +16,7 @@ searchField.addEventListener("keyup",(e)=>{
         })
             .then((response) => response.json())
             .then((data) => {
+                tableBody.innerHTML = "";
                 tableOutPut.style.display = "block";
                 appTable.style.display = "none";
                 paginationContainer.style.display = "none";

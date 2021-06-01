@@ -5,10 +5,12 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
+
 from . import models
 from .models import Category, Expense
 from django.utils import timezone
 from django.core.paginator import Paginator
+from UserPreference.models import UserPreference
 
 
 @login_required(login_url='authentication/login')
@@ -18,10 +20,12 @@ def index(request):
     paginator = Paginator(expenses, 8)
     page_number = request.GET.get('page')
     page_obj = Paginator.get_page(paginator, page_number)
+    currency = UserPreference.objects.get(user=request.user).currency
     context = {
         'categories': categories,
         'expenses': expenses,
-        'page_obj': page_obj
+        'page_obj': page_obj,
+        'currency' : currency
         # previous value
     }
     return render(request, 'expenses/index.html', context)
