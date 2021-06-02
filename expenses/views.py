@@ -5,7 +5,6 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
-
 from . import models
 from .models import Category, Expense
 from django.utils import timezone
@@ -15,22 +14,21 @@ from UserPreference.models import UserPreference
 
 @login_required(login_url='authentication/login')
 def index(request):
-    categories = Category.objects.all()
     expenses = Expense.objects.filter(owner=request.user)
     paginator = Paginator(expenses, 8)
     page_number = request.GET.get('page')
     page_obj = Paginator.get_page(paginator, page_number)
     currency = UserPreference.objects.get(user=request.user).currency
     context = {
-        'categories': categories,
         'expenses': expenses,
         'page_obj': page_obj,
-        'currency' : currency
+        'currency': currency
         # previous value
     }
     return render(request, 'expenses/index.html', context)
 
 
+@login_required(login_url='authentication/login')
 def add_expense(request):
     categories = Category.objects.all()
     today = timezone.now()
@@ -65,6 +63,7 @@ def add_expense(request):
         return redirect('expenses')
 
 
+@login_required(login_url='authentication/login')
 def edit_expense(request, id):
     categories = Category.objects.all()
     expense = Expense.objects.get(pk=id)
@@ -102,6 +101,7 @@ def edit_expense(request, id):
         return redirect('expenses')
 
 
+@login_required(login_url='authentication/login')
 def delete_expense(request, id):
     expense = Expense.objects.get(pk=id)
     expense.delete()
