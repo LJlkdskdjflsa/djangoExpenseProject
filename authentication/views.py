@@ -18,6 +18,18 @@ import json
 from validate_email import validate_email
 from .utils import account_activation_token
 
+import threading
+
+
+class EmailThread(threading.Thread):
+
+    def __init__(self, email):
+        self.email = email
+        threading.Thread.__init__(self)
+
+    def run(self):
+        self.email.send(fail_silently=False)
+
 
 # register
 class RegistrationView(View):
@@ -73,7 +85,8 @@ class RegistrationView(View):
                 EMAIL_HOST_USER,
                 [email],
             )
-            email.send(fail_silently=False)
+            EmailThread(email).start()
+            #email.send(fail_silently=False)
             # fail_silently = False (get the error message)
 
             messages.success(request, 'Account successfully created')
@@ -224,7 +237,8 @@ class RequestPasswordSetEmail(View):
                 EMAIL_HOST_USER,
                 [email],
             )
-            email.send(fail_silently=False)
+            EmailThread(email).start()
+
             messages.success(request, 'We have send you an email,'
                                       'please use it to reset your password')
             return render(request, 'authentication/reset_password.html')
@@ -248,9 +262,9 @@ class CompletePasswordReset(View):
                 messages.info(request, "Password reset link is invalid, please get a new one.")
                 return render(request, 'authentication/reset_password.html', context)
         except Exception as e:
-            #trace exception
-            #import pdb
-            #pdb.set_trace()
+            # trace exception
+            # import pdb
+            # pdb.set_trace()
             messages.info(request, "something went wrong, try again.")
             return render(request, 'authentication/reset_password.html', context)
 
@@ -258,7 +272,7 @@ class CompletePasswordReset(View):
 
     def post(self, request, uidb64, token):
         context = {
-            'uidb64':uidb64,
+            'uidb64': uidb64,
             'token': token,
         }
         password = request.POST['password']
@@ -281,12 +295,12 @@ class CompletePasswordReset(View):
                 return render(request, 'authentication/set_new_password.html', context)
             user.set_password(password)
             user.save()
-            #verify is the link has been used before
+            # verify is the link has been used before
             messages.success(request, "Password reset successfully, you can login with your new password")
             return redirect('login')
         except Exception as e:
-            #trace exception
-            #import pdb
-            #pdb.set_trace()
+            # trace exception
+            # import pdb
+            # pdb.set_trace()
             messages.info(request, "something went wrong, try again.")
             return render(request, 'authentication/set_new_password.html', context)
