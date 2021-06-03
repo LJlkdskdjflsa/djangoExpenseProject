@@ -7,4 +7,4 @@ DB_PORT = 5432
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'liliangjya@gmail.com'
 DEFAULT_FROM_EMAIL = 'liliangjya@gmail.com'
-EMAIL_HOST_PASSWORD = 'liliangjyaliliangjya'
+EMAIL_HOST_PASSWORD = '69BKmaC$EH5iCXEs'
